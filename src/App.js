@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from 'react'
+import auth from './Components/Auth/Auth'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = props => {
+  console.log('App.js', props)
+  useEffect(() => {
+    async function silentAuthCheck() {
+      // if (props.location.pathname === '/callback') return
+      try {
+        console.log('async silentauthcheck: ', auth)
+        await auth.silentAuth()
+      } catch (err) {
+        if (err.error !== 'login_required') console.log('silentAuth error: ', err.error)
+      }
+    }
+    silentAuthCheck()
+  })
+  return [props.children]
 }
 
-export default App;
+export default App
