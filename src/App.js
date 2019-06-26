@@ -5,7 +5,6 @@ const App = props => {
   console.log('App.js', props)
   useEffect(() => {
     async function silentAuthCheck() {
-      // if (props.location.pathname === '/callback') return
       try {
         console.log('async silentauthcheck: ', auth)
         await auth.silentAuth()
