@@ -1,0 +1,226 @@
+allowlist: []
+functions: []
+query_collections: []
+query_templates: []
+remote_schemas: []
+tables:
+- array_relationships:
+  - comment: null
+    name: recipes
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table: recipes
+  - comment: null
+    name: todos
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table: todos
+  delete_permissions:
+  - comment: null
+    permission:
+      filter:
+        auth0_id:
+          _eq: X-Hasura-User-Id
+    role: user
+  event_triggers: []
+  insert_permissions:
+  - comment: null
+    permission:
+      check:
+        auth0_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - id
+      - name
+      - auth0_id
+      - created_at
+      - last_seen
+      set: {}
+    role: user
+  object_relationships: []
+  select_permissions:
+  - comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - id
+      - name
+      - auth0_id
+      - created_at
+      - last_seen
+      filter: {}
+    role: user
+  table: users
+  update_permissions:
+  - comment: null
+    permission:
+      columns:
+      - id
+      - name
+      - auth0_id
+      - created_at
+      - last_seen
+      filter:
+        auth0_id:
+          _eq: X-Hasura-User-Id
+      set: {}
+    role: user
+- array_relationships: []
+  delete_permissions:
+  - comment: null
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+    role: user
+  event_triggers: []
+  insert_permissions:
+  - comment: null
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - is_public
+      - user_id
+      - ingredients
+      - url
+      - tags
+      set: {}
+    role: user
+  object_relationships:
+  - comment: null
+    name: user
+    using:
+      foreign_key_constraint_on: user_id
+  select_permissions:
+  - comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - is_public
+      - user_id
+      - ingredients
+      - url
+      - tags
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+    role: user
+  table: recipes
+  update_permissions:
+  - comment: null
+    permission:
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - is_public
+      - user_id
+      - ingredients
+      - url
+      - tags
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      set: {}
+    role: user
+- array_relationships: []
+  delete_permissions:
+  - comment: null
+    permission:
+      filter:
+        _or:
+        - is_public:
+            _eq: true
+        - user_id:
+            _eq: X-Hasura-User-Id
+    role: user
+  event_triggers: []
+  insert_permissions:
+  - comment: null
+    permission:
+      check:
+        _or:
+        - is_public:
+            _eq: true
+        - user_id:
+            _eq: X-Hasura-User-Id
+      columns:
+      - id
+      - is_completed
+      - created_at
+      - updated_at
+      - is_public
+      - user_id
+      - text
+      set: {}
+    role: user
+  object_relationships:
+  - comment: null
+    name: user
+    using:
+      foreign_key_constraint_on: user_id
+  select_permissions:
+  - comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - id
+      - is_completed
+      - created_at
+      - updated_at
+      - is_public
+      - user_id
+      - text
+      filter:
+        _or:
+        - is_public:
+            _eq: true
+        - user_id:
+            _eq: X-Hasura-User-Id
+    role: user
+  table: todos
+  update_permissions:
+  - comment: null
+    permission:
+      columns:
+      - id
+      - is_completed
+      - created_at
+      - updated_at
+      - is_public
+      - user_id
+      - text
+      filter:
+        _or:
+        - is_public:
+            _eq: true
+        - user_id:
+            _eq: X-Hasura-User-Id
+      set: {}
+    role: user
+- array_relationships: []
+  delete_permissions: []
+  event_triggers: []
+  insert_permissions: []
+  object_relationships: []
+  select_permissions:
+  - comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - name
+      - last_seen
+      filter: {}
+    role: user
+  table: online_users
+  update_permissions: []

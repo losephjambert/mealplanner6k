@@ -12,13 +12,14 @@ import App from './App'
 import auth from './Components/Auth/Auth'
 
 import { ApolloProvider } from 'react-apollo'
-import client from './apollo'
+import makeApolloClient from './apollo'
+
+let client
 
 const provideClient = (Component, renderProps) => {
-  console.log('provideClient')
   // check if logged in
   if (localStorage.getItem('isLoggedIn') === 'true') {
-    console.log('provideClient::isLoggedIn===true', auth)
+    if (!client) client = makeApolloClient()
     return (
       <ApolloProvider client={client}>
         <Component {...renderProps} auth={auth} client={client} />

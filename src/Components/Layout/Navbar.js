@@ -34,7 +34,6 @@ const NavNavLink = styled(Link)`
 
 const Navbar = props => {
   const { isAuthenticated, login, logout } = props.auth
-  console.log('Navbar', props)
 
   let AuthButton = !isAuthenticated() ? (
     <Button onClick={() => login()}>Log In</Button>
