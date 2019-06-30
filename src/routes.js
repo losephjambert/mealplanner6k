@@ -1,62 +1,43 @@
 import React from 'react'
-import { Route, Router } from 'react-router-dom'
-import history from './utils/history'
+import { Route, BrowserRouter, Switch } from 'react-router-dom'
 
 import Home from './Components/Home/Home'
 import LandingPage from './Components/Landing/LandingPage'
 import Callback from './Components/Callback/Callback'
 import Navbar from './Components/Layout/Navbar'
 import AppContainer from './StyleComponents/container'
-import App from './App'
 
-import auth from './Components/Auth/Auth'
+import { Auth0Provider } from './Components/Auth/react-auth0-wrapper'
+import { authClientId, authDomain } from './utils/constants'
 
-import { ApolloProvider } from 'react-apollo'
-import client from './apollo'
-
-const provideClient = (Component, renderProps) => {
-  console.log('provideClient')
-  // check if logged in
-  if (localStorage.getItem('isLoggedIn') === 'true') {
-    console.log('provideClient::isLoggedIn===true', auth)
-    return (
-      <ApolloProvider client={client}>
-        <Component {...renderProps} auth={auth} client={client} />
-      </ApolloProvider>
-    )
-  } else {
-    // not logged in already, hence redirect to login page
-    if (renderProps.match.path !== '/') {
-      window.location.href = '/'
-    } else {
-      return <Component auth={auth} {...renderProps} />
-    }
-  }
-}
-
-const handleAuthentication = props => {
-  if (/access_toke|id_toke|error/.test(props.location.hash)) {
-    auth.handleAuthentication()
-  }
-}
-
-export const makeMainRoutes = () => {
-  return (
-    <Router history={history}>
-      <App auth={auth}>
-        <Route path="/" render={props => provideClient(Navbar, props)}></Route>
-        <AppContainer>
-          <Route exact path="/" render={props => provideClient(LandingPage, props)} />
-          <Route exact path="/home" render={props => provideClient(Home, props)} />
-          <Route
-            path="/callback"
-            render={props => {
-              handleAuthentication(props)
-              return <Callback {...props} />
-            }}
-          />
-        </AppContainer>
-      </App>
-    </Router>
+const onRedirectCallback = appState => {
+  window.history.replaceState(
+    {},
+    document.title,
+    appState && appState.targetUrl ? appState.targetUrl : window.location.pathname
   )
 }
+
+const Routes = () => {
+  return (
+    <BrowserRouter>
+      <Auth0Provider
+        domain={authDomain}
+        client_id={authClientId}
+        redirect_uri={window.location.origin} // takes user back to view they had prior to clicking "log in" // can use /callback route to intercept and do stuff fi we want to
+        onRedirectCallback={onRedirectCallback}
+      >
+        <Navbar />
+        <AppContainer>
+          <Switch>
+            <Route exact path="/" component={LandingPage} />
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/callback" component={Callback} />
+          </Switch>
+        </AppContainer>
+      </Auth0Provider>
+    </BrowserRouter>
+  )
+}
+
+export default Routes

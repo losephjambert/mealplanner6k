@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import Button from '../../StyleComponents/button'
+// import Button from '../../StyleComponents/button'
 
 const Section = styled.section`
   display: flex;
@@ -29,27 +29,14 @@ const Section = styled.section`
 `
 
 const LandingPage = props => {
-  const { isAuthenticated, login } = props.auth
   return (
     <Section>
       <h2>Hello user!</h2>
-      {isAuthenticated() && (
-        <p>
-          Head to your <Link to="/home">dashboard</Link>
-        </p>
-      )}
-      {!isAuthenticated() && (
-        <>
-          <p>
-            <span>Welcome to the super duper automated</span>
-            <span>(with minimal manual input)</span>
-            <span>MealPlanner6000</span>
-          </p>
-          <p>
-            Please <Button onClick={() => login()}>Log In</Button> to continue.
-          </p>
-        </>
-      )}
+      <p>
+        <span>Welcome to the super duper automated</span>
+        <span>(with minimal manual input)</span>
+        <span>MealPlanner6000</span>
+      </p>
     </Section>
   )
 }

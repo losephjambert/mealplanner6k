@@ -1,12 +1,13 @@
 import ReactDOM from 'react-dom'
-import { makeMainRoutes } from './routes'
+import Routes from './routes'
 
 import './css/index.css'
 import './css/fonts.css'
 
 import * as serviceWorker from './serviceWorker'
 
-const ROUTES = makeMainRoutes()
+const ROUTES = Routes()
+
 ReactDOM.render(ROUTES, document.getElementById('root'))
 
 // If you want your app to work offline and load faster, you can change
