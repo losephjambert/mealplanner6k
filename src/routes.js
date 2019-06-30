@@ -9,6 +9,7 @@ import AppContainer from './StyleComponents/container'
 
 import { Auth0Provider } from './Components/Auth/react-auth0-wrapper'
 import { authClientId, authDomain } from './utils/constants'
+import PrivateRoute from './Components/Auth/privateRoute'
 
 const onRedirectCallback = appState => {
   window.history.replaceState(
@@ -31,7 +32,7 @@ const Routes = () => {
         <AppContainer>
           <Switch>
             <Route exact path="/" component={LandingPage} />
-            <Route exact path="/home" component={Home} />
+            <PrivateRoute exact path="/home" component={Home} />
             <Route exact path="/callback" component={Callback} />
           </Switch>
         </AppContainer>
