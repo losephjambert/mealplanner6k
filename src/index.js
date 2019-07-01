@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom'
 import Routes from './routes'
 
-import './css/index.css'
-import './css/fonts.css'
+import './Style/index.css'
+import './Style/fonts.css'
 
 import * as serviceWorker from './serviceWorker'
 

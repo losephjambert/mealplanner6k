@@ -1,7 +1,7 @@
 import React from 'react'
 // import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-// import Button from '../../StyleComponents/button'
+// import Button from '../../Style/button'
 
 const Section = styled.section`
   display: flex;

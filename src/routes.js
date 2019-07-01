@@ -5,10 +5,11 @@ import Home from './Components/Home/Home'
 import LandingPage from './Components/Landing/LandingPage'
 import Callback from './Components/Callback/Callback'
 import Navbar from './Components/Layout/Navbar'
-import AppContainer from './StyleComponents/container'
+import AppContainer from './Style/container'
+import ExternalApi from './Components/API/ExternalApi'
 
 import { Auth0Provider } from './Components/Auth/react-auth0-wrapper'
-import { authClientId, authDomain } from './utils/constants'
+import { authClientId, authDomain, audience } from './utils/constants'
 import PrivateRoute from './Components/Auth/privateRoute'
 
 const onRedirectCallback = appState => {
@@ -26,6 +27,7 @@ const Routes = () => {
         domain={authDomain}
         client_id={authClientId}
         redirect_uri={window.location.origin} // takes user back to view they had prior to clicking "log in" // can use /callback route to intercept and do stuff fi we want to
+        audience={audience}
         onRedirectCallback={onRedirectCallback}
       >
         <Navbar />
@@ -33,6 +35,7 @@ const Routes = () => {
           <Switch>
             <Route exact path="/" component={LandingPage} />
             <PrivateRoute exact path="/home" component={Home} />
+            <PrivateRoute exact path="/external-api" component={ExternalApi} />
             <Route exact path="/callback" component={Callback} />
           </Switch>
         </AppContainer>

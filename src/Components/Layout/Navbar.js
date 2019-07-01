@@ -1,10 +1,10 @@
 import React from 'react'
 // import styled from 'styled-components'
-// import { Link } from 'react-router-dom'
 import { useAuth0 } from '../Auth/react-auth0-wrapper'
+import { Link } from 'react-router-dom'
 
-// import { NavHeight } from '../../StyleComponents/constants'
-// import Button from '../../StyleComponents/button'
+// import { NavHeight } from '../../Style/constants'
+// import Button from '../../Style/button'
 
 // const Nav = styled.nav``
 
@@ -38,9 +38,19 @@ const Navbar = props => {
 
   return (
     <nav>
-      {!isAuthenticated && <button onClick={() => loginWithRedirect({})}>Log in</button>}
+      {!isAuthenticated && (
+        <>
+          <button onClick={() => loginWithRedirect({})}>Log in</button>
+          <Link to="/">Landing Page</Link>
+        </>
+      )}
 
-      {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
+      {isAuthenticated && (
+        <>
+          <button onClick={() => logout()}>Log out</button>
+          <Link to="/external-api">External API</Link>
+        </>
+      )}
     </nav>
   )
 }
