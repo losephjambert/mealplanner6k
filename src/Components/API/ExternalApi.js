@@ -4,7 +4,7 @@ import { useAuth0 } from '../Auth/react-auth0-wrapper'
 const ExternalApi = () => {
   const [showResult, setShowResult] = useState(false)
   const [apiMessage, setApiMessage] = useState('')
-  const { getTokenSilently } = useAuth0()
+  const { getTokenSilently, user } = useAuth0()
 
   const callApi = async () => {
     try {
@@ -12,7 +12,8 @@ const ExternalApi = () => {
 
       const response = await fetch('/api/external', {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          sub: user.sub
         }
       })
 

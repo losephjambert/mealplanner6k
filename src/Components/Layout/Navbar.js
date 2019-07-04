@@ -49,6 +49,7 @@ const Navbar = props => {
         <>
           <button onClick={() => logout()}>Log out</button>
           <Link to="/external-api">External API</Link>
+          <Link to="/account">Account</Link>
         </>
       )}
     </nav>

@@ -7,6 +7,7 @@ import Callback from './Components/Callback/Callback'
 import Navbar from './Components/Layout/Navbar'
 import AppContainer from './Style/container'
 import ExternalApi from './Components/API/ExternalApi'
+import UserProfile from './Components/Account/UserProfile'
 
 import { Auth0Provider } from './Components/Auth/react-auth0-wrapper'
 import { authClientId, authDomain, audience } from './utils/constants'
@@ -38,6 +39,7 @@ const Routes = () => {
             <Route exact path="/" component={LandingPage} />
             <PrivateRoute exact path="/home" component={Home} />
             <PrivateRoute exact path="/external-api" component={ExternalApi} />
+            <PrivateRoute exact path="/account" component={UserProfile} />
             <Route exact path="/callback" component={Callback} />
           </Switch>
         </AppContainer>
